@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog – Specjalistyczne Systemy Alarmowe</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        
+        .blog-post-listing {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Jeszcze mniejszy odstęp między artykułami */
+            padding: 20px 0;
+            max-width: 900px; 
+            margin: 0 auto;
+        }
+
+        /* Ustawienie filtrów kategorii w jednej, przewijanej linii */
+        #category-filter-buttons {
+            display: flex;
+            flex-wrap: nowrap; /* WAŻNE: Wymuszenie braku zawijania */
+            overflow-x: auto; /* Dodanie przewijania w poziomie */
+            justify-content: center; /* Wyśrodkowanie przycisków w poziomie */
+            padding-bottom: 5px; /* Odstęp na scrollbar */
+        }
+        
+        /* Styl dla pojedynczego przycisku w grupie */
+        #category-filter-buttons .button-link {
+            flex-shrink: 0; /* Zapobiega zmniejszaniu przycisków */
+            margin-right: 10px;
+            padding: 8px 15px; /* Lekko mniejszy padding przycisków */
+            font-size: 0.9em;
+        }
+
+        /* Pojedynczy artykuł na liście */
+        .blog-article {
+            display: block; 
+            background-color: #fff;
+            border-radius: 6px; 
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); 
+            transition: all 0.2s ease;
+            border-left: 4px solid #001f3f; 
+            position: relative;
+            padding: 10px 20px; /* Zmniejszony padding */
+        }
+
+        /* Efekt najechania (HOVER) */
+        .blog-article:hover {
+            box-shadow: 0 4px 10px rgba(0, 31, 63, 0.1); 
+            background-color: #e6f7ff; 
+            border-left-color: #FFD700; 
+            cursor: pointer;
+        }
+        
+        /* Tytuł artykułu - Lekko pomniejszony i bardziej czytelny */
+        .blog-article h3 {
+            font-size: 1.15em; /* Jeszcze mniejszy rozmiar */
+            color: #001f3f;
+            margin: 0; /* Usunięty margines, by zajmował minimalną przestrzeń */
+            line-height: 1.2;
+        }
+
+        /* Usunięto style dla .excerpt i .post-meta, ponieważ zostały usunięte z HTML. */
+
+        .article-image-placeholder {
+            display: none;
+        }
+
+    </style>
+
+    <script>
+        // Funkcja filtrująca artykuły (używana przy kliknięciu i przy ładowaniu strony)
+        function filterArticles(filterValue, articles, filterButtons) {
+            
+            // 1. Zapisz nowy aktywny filtr do pamięci lokalnej
+            localStorage.setItem('activeCategory', filterValue);
+
+            // 2. Ustaw aktywne klasy na przyciskach
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            const activeButton = Array.from(filterButtons).find(btn => btn.getAttribute('data-filter') === filterValue);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // 3. Pokaż/Ukryj artykuły
+            articles.forEach(article => {
+                const articleCategory = article.getAttribute('data-category');
+                
+                if (filterValue === 'wszystkie' || articleCategory === filterValue) {
+                    article.style.display = 'block'; 
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('#category-filter-buttons .button-link');
+            const articles = document.querySelectorAll('.blog-article');
+            
+            // Logika ładowania strony: Sprawdź, czy istnieje zapisana kategoria
+            const savedCategory = localStorage.getItem('activeCategory');
+            
+            // Jeśli jest zapisana kategoria i nie jest to 'wszystkie', użyj jej
+            // W przeciwnym razie domyślnie użyj 'wszystkie'
+            const initialFilter = savedCategory || 'wszystkie';
+            
+            // Wstępnie filtruj artykuły po załadowaniu strony
+            filterArticles(initialFilter, articles, filterButtons);
+
+
+            // Logika kliknięcia przycisku
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const newFilter = this.getAttribute('data-filter');
+                    filterArticles(newFilter, articles, filterButtons);
+                });
+            });
+            
+            
+            // DODATKOWA LOGIKA: Przechwytywanie kliknięcia w artykuł, aby zapisać kategorię
+            articles.forEach(article => {
+                article.addEventListener('click', function() {
+                    const currentActiveFilter = localStorage.getItem('activeCategory') || 'wszystkie';
+                    
+                    // Zapisz aktywny filtr *przed* przejściem do artykułu.
+                    // Choć robimy to już w filterArticles, to jest dodatkowe zabezpieczenie.
+                    localStorage.setItem('activeCategory', currentActiveFilter);
+                    
+                    // Normalne przejście do artykułu (kliknięcie linku <a> wewnątrz)
+                    const postLink = article.querySelector('.post-link');
+                    if (postLink) {
+                        window.location.href = postLink.href;
+                    }
+                });
+            });
+            
+        });
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Blog</h1>
+        <p class="header-subtitle">Wiedza i Technologia na Temat Bezpieczeństwa</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="o-nas.html">O Nas</a></li>
+            <li><a href="uslugi.html">Usługi Ochrony</a></li>
+            <li><a href="realizacje.html">Realizacje</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <section id="filter-bar" style="text-align: center;">
+            <h2>Kategorie Artykułów</h2>
+            <div id="category-filter-buttons" class="button-group" style="margin-top: 20px;">
+                <a href="#" data-filter="systemy-alarmowe" class="button-link">Systemy Alarmowe</a>
+                <a href="#" data-filter="kontrola-dostepu" class="button-link">Kontrola Dostępu</a>
+                <a href="#" data-filter="monitoring-cctv" class="button-link">Monitoring & CCTV</a>
+                <a href="#" data-filter="poradniki-biznes" class="button-link">Poradniki & Biznes</a>
+                <a href="#" data-filter="wszystkie" class="button-link active">Wszystkie</a>
+            </div>
+        </section>
+
+        <section id="blog-listings">
+            
+            <div class="blog-post-listing">
+
+                <article class="blog-article" data-category="kontrola-dostepu">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-6.html" class="post-link">
+                            <h3>Biometria w Kontroli Dostępu: Kiedy Linia Papilarna Zastępuje Kartę?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="kontrola-dostepu">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-czytnik-karta.html" class="post-link">
+                            <h3>Kontrola Dostępu: Czytnik Linii Papilarnych czy Karta Zbliżeniowa?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="monitoring-cctv">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-rodo-cctv.html" class="post-link">
+                            <h3>RODO w Monitoringu Wizyjnym – 5 kluczowych zasad</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="monitoring-cctv">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-vca-analiza.html" class="post-link">
+                            <h3>Czym jest Analiza Wideo VCA i Czy Jej Potrzebujesz?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="kontrola-dostepu">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-rcp-wymogi.html" class="post-link">
+                            <h3>System RCP (Rejestracji Czasu Pracy) – Wymogi prawne i zalety dla firmy.</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="systemy-alarmowe">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-przeglad-systemow.html" class="post-link">
+                            <h3>Przegląd Systemów Alarmowych: Satel, Ajax, Genevo – Który wybrać?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="poradniki-biznes">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-5.html" class="post-link">
+                            <h3>Jak Skutecznie Zabezpieczyć Magazyn? Systemy CCTV i Czujniki Obwodowe.</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="kontrola-dostepu">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-3.html" class="post-link">
+                            <h3>Kontrola Dostępu (KD) – Jak Zarządzać Ruchem w Firmie i Czasem Pracy?</h3>
+                        </a>
+                    </div>
+                </article>
+                
+                <article class="blog-article" data-category="poradniki-biznes">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-rola-sma.html" class="post-link">
+                            <h3>Rola Centrum Monitorowania Alarmów (SMA) – Jak to działa?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="poradniki-biznes">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-licencje-kwalifikacje.html" class="post-link">
+                            <h3>Kto może instalować systemy alarmowe? (Licencje i Kwalifikacje)</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="poradniki-biznes">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-ulgi-dotacje.html" class="post-link">
+                            <h3>Ulgi i Dotacje na Systemy Zabezpieczeń – Jak Oszczędzić na Alarmie i Monitoringu?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="systemy-alarmowe">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-alarm-smart-home.html" class="post-link">
+                            <h3>Integracja Alarmu z Automatyką Domową (Smart Home)</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="systemy-alarmowe">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-przycisk-napadowy.html" class="post-link">
+                            <h3>Jak działa Przycisk Napadowy (Panic Button)?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="systemy-alarmowe">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-przewodowy-vs-radiowy.html" class="post-link">
+                            <h3>Alarm Przewodowy vs. Bezprzewodowy (Radiowy) – Co wybrać?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="poradniki-biznes">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-falszywy-alarm.html" class="post-link">
+                            <h3>Co to jest fałszywy alarm i jak go unikać? (Zwierzęta domowe, burze)</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="poradniki-biznes">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-4.html" class="post-link">
+                            <h3>Zdalny Serwis Alarmu – Jak działa i dlaczego jest kluczowy dla ciągłości ochrony?</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="systemy-alarmowe">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-czad-pozar.html" class="post-link">
+                            <h3>Czad i Pożar – Czy Alarm Antywłamaniowy Chroni Przed Tymi Zagrożeniami?</h3>
+                        </a>
+                    </div>
+                </article>
+                
+                <article class="blog-article" data-category="systemy-alarmowe">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-1.html" class="post-link">
+                            <h3>Jak Wybrać Centralę Alarmową? Poradnik GRADE 2 vs. GRADE 3</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="poradniki-biznes">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-5-bledow.html" class="post-link">
+                            <h3>5 Błędów w Instalacji Alarmu, Które Kosztują Najwięcej</h3>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="blog-article" data-category="systemy-alarmowe">
+                    <div class="article-content-wrapper">
+                        <a href="blog-post-czujniki-obwodowe.html" class="post-link">
+                            <h3>Wybór Czujników Alarmowych: PIR, Dualne, Bariery – Które do Twojego Domu?</h3>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+        
+        <section style="background-color: #f8f8f8; padding: 20px 20px 10px 20px; margin-top: 20px;">
+            <h2 style="font-size: 1.5em; margin-bottom: 10px;">Co Będziemy Publikować Dalej?</h2>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 0.9em;">Regularnie dostarczamy merytoryczne treści, które pomogą Ci zadbać o bezpieczeństwo.</p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; text-align: left;">
+                <div style="flex-basis: 45%; margin-bottom: 10px;">
+                    <p style="font-size: 1em; font-weight: 600; color: #001f3f;">➡️ Audyt bezpieczeństwa: Kiedy go potrzebujesz?</p>
+                </div>
+                <div style="flex-basis: 45%; margin-bottom: 10px;">
+                    <p style="font-size: 1em; font-weight: 600; color: #001f3f;">➡️ Jaka jest rola ubezpieczyciela w kwestii klasy alarmu?</p>
+                </div>
+                <div style="flex-basis: 45%; margin-bottom: 10px;">
+                    <p style="font-size: 1em; font-weight: 600; color: #001f3f;">➡️ Monitoring wizyjny: Jak uniknąć kar RODO?</p>
+                </p>
+                <div style="flex-basis: 45%; margin-bottom: 10px;">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <section class="partners-section">
+        <img src="logos_partners.png" alt="Logotypy partnerów: Genevo, Dahua, Ajax, Satel, BCS, Hikvision i inni">
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Specjalistyczne Systemy Alarmowe. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+</body>
+</html>

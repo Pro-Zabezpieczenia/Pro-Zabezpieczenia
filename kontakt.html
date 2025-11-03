@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Skontaktuj Się z Ekspertami Bezpieczeństwa</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .contact-info h3, .contact-form h3 {
+            color: #001f3f;
+            border-left: 4px solid #FFD700;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        .contact-info p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        .contact-info a {
+            color: #001f3f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: #FFD700;
+        }
+
+        /* Stylizacja Formularza */
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .contact-form label {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #001f3f;
+        }
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ważne, by padding nie zmieniał szerokości */
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .contact-form button {
+            background-color: #001f3f;
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .contact-form button:hover {
+            background-color: #FFD700;
+            color: #001f3f;
+        }
+        
+        /* Styl mapy */
+        .map-section {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .map-placeholder {
+            height: 300px;
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Skontaktuj Się z Nami</h1>
+        <p>Jesteśmy gotowi, by odpowiedzieć na Twoje pytania</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="o-nas.html">O Nas</a></li>
+            <li><a href="uslugi.html">Usługi Ochrony</a></li>
+            <li><a href="realizacje.html">Realizacje</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <section id="kontakt-main">
+            <h2>Twoje Bezpieczeństwo Zaczyna Się Tutaj</h2>
+            <p style="text-align: center;">Niezależnie od tego, czy potrzebujesz audytu, nowej instalacji, czy serwisu, jesteśmy do Twojej dyspozycji. Skontaktuj się z naszym zespołem ekspertów.</p>
+
+            <div class="contact-grid">
+                
+                <div class="contact-info">
+                    <h3>Bezpośredni Kontakt</h3>
+                    
+                    <p><strong>Adres Biura:</strong><br>
+                    ul. Dąbrowskiego 69/4<br>
+                    65-021 Zielona Góra</p>
+
+                    <p><strong>Telefon (Biuro):</strong><br>
+                    <a href="tel:+48123456789">+48 695 843 621</a></p>
+                    
+                    <p><strong>Telefon (Wsparcie Techniczne 24/7):</strong><br>
+                    <a href="tel:+48987654321">+48 695 843 621</a></p>
+
+                    <p><strong>E-mail (Zapytania Handlowe):</strong><br>
+                    <a href="mailto:biuro@specjalisci-ochrony.pl">biuro@specjalisci-ochrony.pl</a></p>
+
+                    <p><strong>Godziny Pracy Biura:</strong><br>
+                    Pon. - Pt.: 8:00 - 16:00</p>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Wyślij Zapytanie</h3>
+                    <form action="#" method="POST">
+                        <label for="name">Imię i Nazwisko:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Adres E-mail:</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="subject">Temat (np. Wycena, Serwis, Audyt):</label>
+                        <input type="text" id="subject" name="subject" required>
+
+                        <label for="message">Treść Wiadomości:</label>
+                        <textarea id="message" name="message" required></textarea>
+
+                        <button type="submit">Wyślij Wiadomość</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="map-section">
+                <h3>Gdzie Nas Znajdziesz?</h3>
+                <div class="map-placeholder">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2442.2741914210435!2d15.494016076395567!3d51.94688190771146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4706240243407989%3A0x88c2fdfd8af41398!2sGenera%C5%82a%20Jaros%C5%82awa%20D%C4%85browskiego%2069%2C%2065-021%20Zielona%20G%C3%B3ra!5e0!3m2!1spl!2spl!4v1714589000000!5m2!1spl!2spl"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+            </div>
+            
+        </section>
+
+    </div>
+
+    <section class="partners-section">
+        <img src="logos_partners.png" alt="Logotypy partnerów: Genevo, Dahua, Ajax, Satel, BCS, Hikvision i inni">
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Specjalistyczne Systemy Alarmowe. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+</body>
+</html>

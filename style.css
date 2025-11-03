@@ -1,0 +1,589 @@
+/* ZMIENIONE KOLORY: 
+- Główny: #001f3f (Bardzo ciemny granat/prawie czarny)
+- Akcent/Przycisk: #FFD700 (Złoty/Żółty) 
+- Tło: #f8f8f8 (Jasna szarość/off-white) 
+*/
+
+/* --- Globalne Style --- */
+body {
+    font-family: 'Open Sans', Arial, sans-serif; 
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+
+    /* --- IMPLEMENTACJA TŁA Z ALARMAMI --- */
+    background-color: #f8f8f8; 
+    background-image: 
+        /* Warstwa gradientu: 95% koloru #f8f8f8 (prawie nieprzezroczysta) dla lepszej czytelności tekstu */
+        linear-gradient(rgba(248, 248, 248, 0.95), rgba(248, 248, 248, 0.95)), 
+        /* Twoje nowe zdjęcie */
+        url('alarm_background.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-position: center center; 
+    /* KONIEC IMPLEMENTACJI TŁA */
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); 
+    border-radius: 4px;
+}
+section {
+    padding: 40px 0;
+    border-bottom: 1px solid #eee;
+}
+section:last-child {
+    border-bottom: none;
+}
+
+/* --- Nagłówki --- */
+header {
+    background-color: #001f3f; 
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+header h1 {
+    margin: 0;
+    font-size: 3em; 
+    font-weight: 800; 
+}
+.header-subtitle {
+    font-size: 1.5em; 
+    font-weight: 400;
+    margin-top: 5px;
+}
+header p {
+    font-size: 1.2em;
+    font-weight: 300;
+    margin-top: 5px; 
+}
+
+h2 {
+    color: #001f3f;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    font-weight: 700;
+    position: relative;
+}
+h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: #FFD700; 
+    margin: 10px auto 0;
+}
+h3 {
+    color: #001f3f;
+    border-left: 5px solid #FFD700; 
+    padding-left: 15px;
+    font-size: 1.5em;
+}
+
+/* --- Nawigacja --- */
+nav {
+    background-color: #002b5c; 
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    margin: 0;
+}
+nav ul li {
+    display: inline;
+    margin: 0;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    display: inline-block;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+nav ul li a:hover {
+    background-color: #FFD700; 
+    color: #001f3f;
+}
+
+/* --- Siatki i Karty --- */
+.services-grid, .realizacje-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+.service-item, .realizacja-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+.service-item:hover, .realizacja-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+.service-item h3 {
+    border-left: none;
+}
+
+/* --- Tabela --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1.05em;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+}
+th {
+    background-color: #001f3f;
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* --- Sekcja CTA i Przyciski --- */
+.cta-section {
+    text-align: center;
+    background-color: #001f3f;
+    color: white;
+    padding: 50px;
+    margin-top: 40px;
+    border-radius: 4px;
+}
+.cta-section h2 {
+    color: white;
+}
+.cta-section h2::after {
+    background-color: #FFD700;
+}
+.cta-section a, .button-link, .contact-form button {
+    display: inline-block;
+    background-color: #FFD700; 
+    color: #001f3f;
+    padding: 15px 35px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-top: 25px;
+    transition: background-color 0.3s, color 0.3s;
+    border: 2px solid #FFD700;
+    cursor: pointer;
+}
+.cta-section a:hover, .button-link:hover {
+    background-color: #001f3f;
+    color: #FFD700;
+}
+.contact-form button:hover {
+    background-color: #e6c200;
+    color: #001f3f;
+    border: 2px solid #FFD700;
+}
+
+
+/* --- Stopka --- */
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #111; 
+    color: #ccc;
+    margin-top: 40px;
+}
+
+/* --- STYL DLA SEKCJI PARTNERZY (na dole strony) --- */
+.partners-section {
+    padding: 30px 0;
+    text-align: center;
+    background-color: white; 
+    border-top: 1px solid #eee; 
+}
+.partners-section img {
+    max-width: 90%; 
+    height: auto;
+    display: block; 
+    margin: 0 auto; 
+}
+
+/* --- STYLY DLA STATYSTYK I OSIĄGNIĘĆ --- */
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 25px;
+    margin: 40px auto 20px;
+    text-align: center;
+}
+.statistic-item {
+    background-color: #f0f3f6; 
+    padding: 25px 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%; 
+}
+.statistic-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.statistic-item h4 {
+    color: #FFD700; 
+    font-size: 3.5em; 
+    margin: 10px 0;
+    line-height: 1;
+    font-weight: 800;
+}
+.statistic-item p {
+    color: #001f3f;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.statistic-item span {
+    display: block;
+    font-size: 1em;
+    font-weight: 400;
+    color: #666;
+    margin-bottom: 5px;
+}
+/* --- KONIEC STYLÓW DLA STATYSTYK --- */
+
+
+/* --- Style specyficzne --- */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fefefe;
+}
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #001f3f;
+}
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+.contact-form textarea {
+    min-height: 150px;
+}
+
+/* Style dla bloga i interaktywnych sekcji (domyślny styl karty bloga) */
+.blog-post-card {
+    /* Używamy domyślnego stylu .blog-post-card, ale niech będzie mniej agresywny, 
+       gdyż na blog.html używamy klasy .simple-card */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* ========================================================================= */
+/* --- STYLISTYKA DLA BLOG.HTML (UPROSZCZONE KARTY ARTYKUŁÓW: .simple-card) --- */
+/* ========================================================================= */
+
+/* Uproszczona karta postu */
+.blog-post-card.simple-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 20px; /* Mniejszy padding niż domyślny */
+    margin-bottom: 15px; /* Mniejszy odstęp między kartami */
+    border-radius: 8px;
+    transition: box-shadow 0.3s, border-left 0.3s;
+    border-left: 5px solid #FFD700; /* Złoty akcent po lewej */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Domyślny cień */
+}
+
+.blog-post-card.simple-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #001f3f; /* Granatowy akcent przy najechaniu */
+}
+
+/* Tytuł */
+.blog-post-card.simple-card h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.4em;
+    padding-left: 0;
+    border-left: none; 
+}
+
+.blog-post-card.simple-card h3 a {
+    color: #001f3f; 
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.blog-post-card.simple-card h3 a:hover {
+    color: #FFD700; 
+    text-decoration: underline;
+}
+
+/* Meta informacje (data i tag) */
+.blog-post-card .simple-meta {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 5px;
+}
+
+.blog-post-card .simple-meta .simple-date {
+    font-weight: 600;
+    color: #555;
+}
+
+/* Styl dla taga */
+.blog-post-card .simple-meta .tag {
+    display: inline-block;
+    background-color: #f0f0f0; 
+    color: #001f3f;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-left: 15px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+/* Pozostałe style blogowe */
+.post-content { /* Ukrywana treść bloga */
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background-color: #fcfcfc;
+}
+.post-content h4 {
+    color: #001f3f;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+.poll-box {
+    background-color: #e8f0ff; 
+    padding: 25px;
+    margin: 40px auto;
+    border-radius: 8px;
+    max-width: 700px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.poll-box h3 {
+    color: #001f3f;
+    text-align: center;
+    border-left: none;
+}
+.poll-box label {
+    display: block;
+    margin: 10px 0;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+.poll-box input[type="radio"] {
+    margin-right: 10px;
+}
+.hidden-post {
+    display: none;
+}
+
+.button-group a {
+    margin: 5px;
+    text-transform: uppercase;
+    
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid #FFD700; 
+}
+.button-group a.active {
+    background-color: #001f3f !important;
+    color: white !important;
+    border: 2px solid #FFD700;
+}
+
+
+/* Style dla realizacji */
+.realizacja-card img {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover; 
+    display: block;
+}
+.realizacja-info {
+    padding: 15px;
+    text-align: left; 
+    background-color: #f0f0f0;
+}
+.realizacja-info h3 {
+    margin-top: 0;
+    color: #001f3f;
+    border-left: none;
+    padding-left: 0;
+}
+
+/* Style dla sekcji O NAS - rozwijany tekst */
+#rozszerzony-opis {
+    display: none; 
+    margin-top: 20px;
+    padding: 20px;
+    border-left: 5px solid #FFD700; 
+    background-color: #fcfcfc;
+}
+
+/* STYL DLA PRZYCISKU ROZWIJANIA */
+.toggle-button {
+    display: inline-block;
+    background-color: #FFD700; 
+    color: #001f3f; 
+    padding: 12px 30px; 
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-top: 25px;
+    transition: background-color 0.3s, color 0.3s;
+    border: 2px solid #FFD700;
+    cursor: pointer;
+}
+.toggle-button:hover {
+    background-color: #001f3f; 
+    color: #FFD700;
+}
+
+/* Usuwamy lub ukrywamy pierwotny styl .toggle-link */
+.toggle-link {
+    display: none; 
+}
+
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+.value-item {
+    padding: 15px;
+    border: 1px dashed #ddd;
+    border-radius: 4px;
+}
+.value-item h4 {
+    color: #001f3f;
+    margin-top: 0;
+    font-size: 1.3em;
+}
+
+/* ========================================================================= */
+/* --- STYLY DLA WIDOKU POJEDYNCZEGO ARTYKUŁU (single-post-template.html) --- */
+/* ========================================================================= */
+
+.single-post-content {
+    max-width: 800px; /* Ograniczenie szerokości dla lepszej czytelności tekstu */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+.single-post-content h1 {
+    font-size: 2.5em;
+    color: #001f3f;
+    margin-bottom: 10px;
+    text-align: left; /* Tytuł na stronie postu nie jest wyśrodkowany */
+}
+.single-post-content h2 {
+    color: #001f3f;
+    font-size: 1.6em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: left;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 5px;
+}
+.single-post-content h2::after {
+    content: none; /* Usuwamy pasek poniżej H2 z globalnych stylów */
+}
+.single-post-content p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+.post-meta {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 20px;
+}
+.post-meta .category-tag {
+    margin-left: 20px;
+    padding: 3px 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #001f3f;
+}
+.lead-paragraph {
+    font-style: italic;
+    font-weight: 600;
+    color: #555;
+    padding: 10px 0;
+    border-left: 4px solid #FFD700;
+    padding-left: 15px;
+}
+
+/* --- KONIEC STYLÓW DLA POJEDYNCZEGO ARTYKUŁU --- */
+
+/* --- STYLY DLA LINKU POWROTNEGO NA STRONIE POSTU --- */
+.back-to-blog-container {
+    background-color: #002b5c; /* Ciemniejszy kolor tła, aby kontrastował z nagłówkiem */
+    padding: 10px 0;
+    text-align: center;
+}
+
+.back-to-blog-link {
+    display: inline-block;
+    color: #FFD700; /* Złoty kolor dla akcentu */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 5px 15px;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 3px;
+}
+
+.back-to-blog-link:hover {
+    color: #001f3f; 
+    background-color: #FFD700;
+}
+/* --- KONIEC STYLÓW DLA LINKU POWROTNEGO --- */
